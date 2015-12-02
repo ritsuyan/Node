@@ -1,0 +1,26 @@
+var http = require('http');
+var server = http.createServer(function  (req,res) {
+	// body...
+}).listen(1337,"127.0.0.1");
+server.on('error',function  (e) {
+	if(e.code == 'EADDRINUSE'){
+		console.log("server port has been occupy");
+	}// body...
+});
+
+
+
+
+http close fun : 
+var http = require('http');
+var server = http.createServer(function  (req,res) {
+	// body...
+}).listen(1337,"127.0.0.1");
+server.on('listening',function  () {
+	 console.log("server has been listening");
+	server.close(); // body...
+});
+server.on('close',function  (argument) {
+	console.log("the server has been close");
+	// body...
+});
