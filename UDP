@@ -1,0 +1,29 @@
+create  a  cilent：
+           var dgram = require('dgram');
+var message = new Buffer("hello");
+var client  = dgram.createSocket("udp4");
+client.send(message,0,message.length,41234,"localhost",function  (err,bytens) {
+	 if(err)  console.log("send data failed");
+	 else     console.log("send %d byten data",bytens);// body...
+});
+ client.on("message",function  (msg,rinfo) {
+ 	console.log("get the server data: %s",msg);
+ 	console.log("server address %s",rinfo.address);
+ 	console.log("server port %s",rinfo.port);// body...
+ });
+ 
+ 
+create  a server:
+     var dgram = require("dgram");
+var server = dgram.createSocket("udp4");
+server.on("message",function  (msg,rinfo) {
+	 console.log("receive the message:"+msg);
+	 console.log("client address message is %j",rinfo);
+	  var buf = new Buffer("confirm:"+msg);
+	  server.send(buf,0,buf.length,rinfo.port,rinfo.address);// body...
+});
+  server.on("listening", function  (argument) {
+  	  var address = server.address();
+  	  console.log("server has been listening,address message %j",address);// body...
+  });
+   server.bind(41234,'localhost');
